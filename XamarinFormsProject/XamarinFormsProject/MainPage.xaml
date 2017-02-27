@@ -3,7 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XamarinFormsProject"
              x:Class="XamarinFormsProject.MainPage">
-
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness"
+                Android="0,0,0,0"
+                iOS="0,20,0,0"
+                WinPhone="0,0,0,0"
+                />
+  </ContentPage.Padding>
   <ScrollView>
     <StackLayout Orientation="Vertical" Padding="5,0,0,0">
       <Switch />
