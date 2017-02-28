@@ -11,9 +11,9 @@ namespace XamarinFormsProject
     {
         public App()
         {
-            InitializeComponent();
-
-            MainPage = new XamarinFormsProject.MainPage();
+            // The root page of your application
+            var content = new Views.CatsPage();
+            MainPage = new NavigationPage(content);
         }
 
         protected override void OnStart()
