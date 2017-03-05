@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using XamarinFormsProject.Models;
@@ -14,39 +11,41 @@ namespace XamarinFormsProject.ViewModels
     {
         public CatsViewModel()
         {
-            Cats = new ObservableCollection<Models.Cat>();
+            Cats = new ObservableCollection<Cat>();
 
             GetCatsCommand = new Command(
-                async () => await GetCats(),
-                () => !IsBusy
-                );
+            async () => await GetCats(),
+            () => !IsBusy
+            );
         }
+
+        private bool Busy;
+
+        public Command GetCatsCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(
-            [System.Runtime.CompilerServices.CallerMemberName]
-            string propertyName = null) =>
-            PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(propertyName));
-
-        private bool Busy;
+        public ObservableCollection<Cat> Cats { get; set; }
 
         public bool IsBusy
         {
             get
             {
-                GetCatsCommand.ChangeCanExecute();
                 return Busy;
             }
             set
             {
                 Busy = value;
                 OnPropertyChanged();
+                GetCatsCommand.ChangeCanExecute();
             }
         }
 
-        public ObservableCollection<Cat> Cats { get; set; }
+        private void OnPropertyChanged(
+            [System.Runtime.CompilerServices.CallerMemberName]
+                string propertyName = null) =>
+                    PropertyChanged?.Invoke(this,
+                        new PropertyChangedEventArgs(propertyName));
 
         async Task GetCats()
         {
@@ -83,6 +82,5 @@ namespace XamarinFormsProject.ViewModels
             return;
         }
 
-        public Command GetCatsCommand { get; set; }
     }
 }
